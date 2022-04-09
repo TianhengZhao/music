@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Provider } from "react-redux"
+import { GlobalStyle } from "./style";
+import { IconStyle } from "./assets/iconfont/iconfont";
+import { renderRoutes } from "react-router-config"; // 读取路由配置转化为Route标签
+import { HashRouter } from "react-router-dom";
+import routes from "./routes/index";
+import store from "./store";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App () {
+    return (
+        <Provider store={store}>
+            <HashRouter>
+                <GlobalStyle></GlobalStyle>
+                <IconStyle></IconStyle>
+                {
+                    renderRoutes(routes)
+                }
+            </HashRouter>
+        </Provider>
+    );
 }
-
-export default App;
