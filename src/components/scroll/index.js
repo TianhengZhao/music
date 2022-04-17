@@ -1,8 +1,30 @@
 import BScroll from 'better-scroll'
-import React, { forwardRef, useState, useRef, useEffect, useImperativeHandle } from 'react';
-import {PropTypes} from 'prop-types';
-import {ScrollContainer} from './style';
+import React, { forwardRef, useState, useRef, useEffect, useImperativeHandle, useMemo } from 'react';
+import { PropTypes } from 'prop-types';
+import { ScrollContainer } from './style';
+import Loading from "../../baseUI/loading";
+import Loading2 from "../../baseUI/loading-v2";
+import { debounce } from '../../api/utils';
 
+import styled from'styled-components';
+
+const PullUpLoading = styled.div`
+  position: absolute;
+  left:0; right:0;
+  bottom: 0px;
+  height: 60px;
+  margin: auto;
+  z-index: 100;
+`;
+
+const PullDownLoading = styled.div`
+  position: absolute;
+  left:0; right:0;
+  top: 0px;
+  height: 30px;
+  margin: auto;
+  z-index: 100;
+`;
 
 // 由于Scroll组件经常被取到原生DOM，即其包裹的DOM，函数式组件不能被直接调用ref，因此用forwardRef包裹
 // ref最终只能被挂载到class组件或html元素
@@ -16,19 +38,23 @@ const Scroll = forwardRef((props, ref) => {
         direction,
         click, 
         refresh, 
-        // eslint-disable-next-line
         pullDown, 
-        // eslint-disable-next-line
         pullDownLoading, 
-        // eslint-disable-next-line
         pullUp, 
-        // eslint-disable-next-line
         pullUpLoading, 
-        // eslint-disable-next-line
         onScroll, 
         bounceTop, 
         bounceBottom
     } = props;
+
+    let pullUpDebounce = useMemo(() => {
+        return debounce(pullUp, 500);
+    }, [pullUp]);
+
+    let pullDownDebounce = useMemo(() => {
+        return debounce(pullDown, 500);
+    }, [pullDown]);
+
     // 新建BScroll实例
     useEffect(() => {
         // initialize BScroll
@@ -64,40 +90,36 @@ const Scroll = forwardRef((props, ref) => {
 
     // 上拉加载
     useEffect(() => {
+
         if (!bScroll || !pullUp) {
             return;
         }
         bScroll.on('scrollEnd', () => {
             // 判断是否到达了底部
             if (bScroll.y <= bScroll.maxScrollY + 100) {
-                pullUp();
-                console.log('pull');
+                pullUpDebounce()
             }
         });
         return () => {
             bScroll.off('scrollEnd');
         }
-    }, [pullUp, bScroll]);
+    }, [pullUp, bScroll, pullUpDebounce]);
 
     // 下拉加载
     useEffect(() => {
-        console.log('touch1');
         if (!bScroll || !pullDown) {
-            console.log(pullDown);
             return;
         }
         bScroll.on('touchEnd', (pos) => {
-            console.log('touch3');
             // 判断是否到达了底部
             if (pos.y > 50) {
-                pullDown();
-                console.log('touch');
+                pullDownDebounce();
             }
         });
         return () => {
             bScroll.off('touchEnd');
         }
-    }, [pullDown, bScroll]);
+    }, [pullDown, bScroll, pullDownDebounce]);
 
     // 多个useEffect，按照代码顺序执行
     // 每次渲染或更新判断是否更新滚动部分
@@ -121,9 +143,13 @@ const Scroll = forwardRef((props, ref) => {
         }
     }));
 
+    const PullUpDisplayStyle = pullUpLoading ? { display: ''} : { display: 'none' };
+    const PullDownDisplayStyle = pullDownLoading ?  { display: ''} : { display: 'none' };
     return (
         <ScrollContainer ref={scrollContainerRef}>
             {props.children}
+            <PullDownLoading style={PullDownDisplayStyle}><Loading2 /></PullDownLoading>
+            <PullUpLoading style={PullUpDisplayStyle}><Loading /></PullUpLoading>
         </ScrollContainer>
     )
 });
