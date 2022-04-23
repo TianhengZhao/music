@@ -25,3 +25,9 @@ export const getRankListRequest = count => {
     // 榜单
     return axiosInstance.get(`/toplist/detail`);
 }
+
+// album
+export const getAlbumDetailRequest = id => {
+    console.log('请求')
+    return axiosInstance.get(`/playlist/detail?id=${id}`);
+}

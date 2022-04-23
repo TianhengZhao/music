@@ -4,12 +4,14 @@ import Home from '../applications/Home/index.js';
 import Recommend from '../applications/Recommend/index.js';
 import Rank from '../applications/Rank/index.js';
 import Singers from '../applications/Singers/index.js';
+import Album from '../applications/Album/index';
 
 // eslint-disable-next-line 
 export default [
     {
         path: "/",
         component: Home, // 公共组件
+        // 子路由们
         routes: [
             {
                 path: "/",
@@ -20,7 +22,11 @@ export default [
             },
             {
                 path: "/recommend",
-                component: Recommend
+                component: Recommend,
+                routes: [{
+                    path: "/recommend/:id",
+                    component: Album
+                }]
             },
             {
                 path: "/singers",
@@ -28,7 +34,11 @@ export default [
             },
             {
                 path: "/rank",
-                component: Rank
+                component: Rank,
+                routes: [{
+                    path: "/rank/:id",
+                    component: Album
+                }]
             }
         ]
     }

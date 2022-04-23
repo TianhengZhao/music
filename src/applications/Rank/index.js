@@ -10,13 +10,15 @@ import {
     SongList
  } from "./style";
  import Loading from "../../baseUI/loading";
+import { renderRoutes } from 'react-router-config';
 
 function Rank(props) {
     const { rankList: listImm, loading, dispatchRankList } = props;
     let list = listImm.toJS();
 
-    let enterDetail = (name) => {
-
+    let enterDetail = (id) => {
+        console.log(id)
+        props.history.push(`/rank/${id}`);
     }
 
     useEffect(() => {
@@ -35,7 +37,7 @@ function Rank(props) {
                             <ListItem 
                                 key={item.coverImgId+item.name}
                                 length={item.tracks.length}
-                                onClick={() => enterDetail(item.name)}
+                                onClick={() => enterDetail(item.id)}
                             >
                                 <div className="img_wrapper">
                                     <img src={item.coverImgUrl} alt=""/>
@@ -80,6 +82,7 @@ function Rank(props) {
                     { loading ? <Loading></Loading> : null }
                 </div>
             </Scroll>  
+            { renderRoutes(props.route.routes) } 
         </Container>   
     )
 }

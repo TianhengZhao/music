@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { renderRoutes } from "react-router-config";
 import * as action from "./store/actionCreator";
 import Slider from "../../components/slider";
 import RecommendList from "../../components/list";
@@ -9,13 +10,14 @@ import { forceCheck } from "react-lazyload";
 import Loading from '../../baseUI/loading';
 
 function Recommend(props) {
+    // 路由组件props包含route，它的routes是该路由下的子路由
     // eslint-disable-next-line
-    const { bannerListImm, recommendListImm, songsCountImm, enterLoading  } = props;
+    const { bannerListImm, recommendListImm, songsCountImm, enterLoading, route  } = props;
     const { getBannerDataDispatch, getRecommendListDataDispatch } = props;
 
      // 记得转换回js
-     const bannerList = bannerListImm ? bannerListImm.toJS() : [];
-     const recommendList = recommendListImm ? recommendListImm.toJS() : [];
+     const bannerList = bannerListImm.toJS();
+     const recommendList = recommendListImm.toJS();
 
      useEffect(() => {
       // 加了判断之后，当再次进入recommend页面，不发送请求，用redux中的缓存数据，但这样两次推荐页内容一样
@@ -41,6 +43,7 @@ function Recommend(props) {
         </Scroll>
         {/* 当多个请求时何时loading结束，请求出错如何处理？ ———— 好问题，或许可以用promise.all */}
         {enterLoading ? <Loading /> : null}
+        { renderRoutes(route.routes) } 
       </Content>
     );
 }

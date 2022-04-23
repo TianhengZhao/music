@@ -33,3 +33,14 @@ export const filterRankList = (list) => {
         }
     }
 }
+
+// album中
+export const concactSingerName = (arr) => {
+    let res = '';
+    for (let item of arr) {
+        res += item.name + '/';
+    }
+    return res.slice(0, res.length-1);
+}
+
+export const isEmptyObject = obj => !obj || Object.keys(obj).length === 0;
