@@ -3,7 +3,7 @@ import { fromJS } from 'immutable';
 
 const initState = fromJS({
     loading: false,
-    albumList: []
+    currentAlbum: []
 })
 
 export default function reduer(state = initState, action) {

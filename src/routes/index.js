@@ -5,6 +5,7 @@ import Recommend from '../applications/Recommend/index.js';
 import Rank from '../applications/Rank/index.js';
 import Singers from '../applications/Singers/index.js';
 import Album from '../applications/Album/index';
+import Singer from '../applications/Singer/index';
 
 // eslint-disable-next-line 
 export default [
@@ -30,7 +31,11 @@ export default [
             },
             {
                 path: "/singers",
-                component:Singers
+                component:Singers,
+                routes: [{
+                    path: "/singers/:id",
+                    component: Singer
+                }]
             },
             {
                 path: "/rank",

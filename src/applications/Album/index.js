@@ -3,7 +3,6 @@ import {
   Container,
   TopDesc,
   Menu,
-  SongList,
   SongItem
 } from './style';
 import { concactSingerName } from '../../api/utils';
@@ -14,6 +13,7 @@ import { connect } from 'react-redux';
 import { getAlbumList, changeEnterLoading } from './store/actionCreator.js';
 import { isEmptyObject } from "../../api/utils";
 import Loading from '../../baseUI/loading';
+import SongList from '../SongList';
 
 
 function Album (props) {
@@ -125,7 +125,6 @@ function Album (props) {
             onExited={props.history.goBack}
         >
           <Container> 
-        {console.log('渲染')}
             <Header title={"返回"} handleClick={handleBack}></Header>
             {
               !isEmptyObject(currentAlbum) ? (
@@ -133,7 +132,12 @@ function Album (props) {
                   <div>
                     { renderTopDesc() }
                     { renderMenu() }
-                    { renderSongList() }
+                    {/* { renderSongList() } */}
+                    <SongList 
+                      collectCount={currentAlbum.subscribedCount}
+                      showCollect={true}
+                      songs={currentAlbum.tracks}
+                    />
                   </div>
                 </Scroll>
               ) : null

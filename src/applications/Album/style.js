@@ -107,6 +107,7 @@ export const Menu = styled.div`
   color: ${style["font-color-light"]};
   font-size:  ${style["font-size-s"]};
   margin-top: -65px;
+  margin-bottom: 20px;
   >div {
     display: flex;
     flex-direction: column;

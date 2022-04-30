@@ -11,6 +11,7 @@ import {
   ListContainer
 } from "./style";
 import Loading from "../../baseUI/loading";
+import { renderRoutes } from 'react-router-config';
 
 function Singers(props) {
   const { 
@@ -33,6 +34,9 @@ function Singers(props) {
   } = props;
   let singerList = singerListImm.toJS();
 
+  let enterDetail = id => {
+    props.history.push(`/singers/${id}`);
+  }
   let handleUpdateCategory = val => {
     if(category === val) return;
     updateCategoryDispatch(val);
@@ -58,8 +62,6 @@ function Singers(props) {
     if (!singerList.length && !category && !alpha && !language) {
       getHotSingerDispatch();
     }
-    console.log('渲染singer')
-    console.log(singerList.length, category, language, alpha)
     // eslint-disable-next-line
   }, []);
 
@@ -69,7 +71,10 @@ function Singers(props) {
         {
           singerList.map((item, index) => {
             return (
-              <ListItem key={item.accountId + '' + index}>
+              <ListItem 
+                key={item.accountId + '' + index}
+                onClick={() => enterDetail(item.id)}
+              >
                 <div className="img_wrapper">
                   <LazyLoad placeholder={<img width="100%" height="100%" src={require ('./singer.png')} alt="music"/>}>
                     <img src={`${item.picUrl}?param=300×300`} width="100%" height="100%" alt="singer" />
@@ -120,6 +125,7 @@ function Singers(props) {
           {renderSingersList()}
         </Scroll>
       </ListContainer>
+      { renderRoutes(props.route.routes) }
     </div>
   )
 }

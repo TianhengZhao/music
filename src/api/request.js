@@ -31,3 +31,8 @@ export const getAlbumDetailRequest = id => {
     console.log('请求')
     return axiosInstance.get(`/playlist/detail?id=${id}`);
 }
+
+// singer
+export const getSingerInfoRequest = id => {
+    return axiosInstance.get(`/artists?id=${id}`);
+}
