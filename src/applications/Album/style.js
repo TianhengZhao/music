@@ -180,9 +180,7 @@ export const SongItem = styled.div`
       box-sizing: border-box;
       padding-right: 5px;
       >span {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        ${style.noWrap()}
       }
       >span:first-child {
         color: ${style["font-color-desc"]};

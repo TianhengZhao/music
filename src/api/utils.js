@@ -44,3 +44,32 @@ export const concactSingerName = (arr) => {
 }
 
 export const isEmptyObject = obj => !obj || Object.keys(obj).length === 0;
+
+// 增加浏览器前缀，处理兼容性问题（或许navigator.userAgent）
+// 获取div dom的style对象
+let elementStyle = document.createElement("div").style;
+let kernal = (() => {
+    // style里有一系列属性，某些属性前缀有webkit等浏览器信息；webkitTransform相当于css中的-webkit-transform
+    let transformNames = {
+        webkit: "webkitTransform",
+        Moz: "MozTransform",
+        O: "OTransfrom",
+        ms: "msTransform",
+        standard: "Transform"
+    };
+    for (let key in transformNames) {
+        if (elementStyle[transformNames[key]] !== "undefined") {
+            return key;
+        }
+    }
+    return false;
+})();
+export function prefixStyle(style) {
+    if (!kernal) {
+        return false;
+    } else if (kernal === "standard") {
+        return style;
+    }
+    return kernal + style.charAt(0).toUpperCase() + style.substr(1);
+}
+

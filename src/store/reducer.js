@@ -3,7 +3,9 @@ import { reducer as recommendReducer } from "../applications/Recommend/store/ind
 import { reducer as singersReducer } from "../applications/Singers/store/index";
 import { reducer as rankReducer } from "../applications/Rank/store";
 import { reducer as albumReducer } from "../applications/Album/store";
-import { reducer as singerReducer } from "../applications/Singer/store/index"
+import { reducer as singerReducer } from "../applications/Singer/store/index";
+import { reducer as playerReducer } from "../applications/Player/store/index";
+
 
 
 
@@ -12,5 +14,6 @@ export default combineReducers ({
     singers: singersReducer,
     rank: rankReducer,
     album: albumReducer,
-    singer: singerReducer
+    singer: singerReducer,
+    player: playerReducer
 })

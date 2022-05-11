@@ -25,7 +25,7 @@ function Album (props) {
    
     // 如果不用useCallback，父组件每次执行会生成不同的handleBack，子组件每次memo结果都不同，导致不必要的重新渲染
     const handleBack = useCallback(() => {
-      setShowStatus (false);
+      setShowStatus(false);
     }, []);
 
     let renderTopDesc = () => {
@@ -80,7 +80,7 @@ function Album (props) {
         <SongList>
           <div className='first_line'>
             <div className='play_all'>
-              <i className='iconfont icon-bofang' />
+              <i className='iconfont icon-play' />
               <span>播放全部</span>
               <span className='sum'>(共{currentAlbum.tracks.length}首)</span>
             </div>

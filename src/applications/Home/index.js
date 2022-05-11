@@ -5,6 +5,7 @@ import {
     Tab,
 } from "./style";
 import MyNavLink from "./MyNavLink";
+import Player from "../Player";
 
 function Home(props) {  
     const { route } = props;   
@@ -24,6 +25,7 @@ function Home(props) {
             {/*renderRoutes只能渲染一层路由。App.js里渲染了一层公共组件Home，Home下一层需要在Home里再调用renderRoutes*/}
             {/* 路由展示区 */}
             { renderRoutes(route.routes) } 
+            <Player></Player>
         </div>       
     )
 }
