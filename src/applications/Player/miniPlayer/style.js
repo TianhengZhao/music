@@ -73,5 +73,11 @@ export const MiniPlayerContainer = styled.div`
         .iconfont {
             font-size: 30px;
         }
+        .icon-mini {
+            font-size: 16px;
+            position: absolute;
+            left: 8px;
+            top: 8px;
+        }
     }
 `;

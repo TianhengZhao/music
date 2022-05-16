@@ -113,6 +113,32 @@ export const Middle = styled.div`
     overflow: hidden;
 `
 
+export const ProgressWrapper = styled.div`
+position: absolute;
+bottom: 100px;
+left: 10%;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    padding: 10px 0;
+    .time {
+        color: ${style["font-color-desc"]};
+        font-size: ${style["font-size-s"]};
+        flex: 0 0 35px;
+        line-height: 30px;
+        width: 30px;
+        &.time-l {
+        text-align: left;
+        }
+        &.time-r {
+        text-align: right;
+        }
+    }
+    .progress-bar-wrapper {
+        flex: 1;
+    }
+`
+
 export const Bottom = styled.div`
     position: absolute;
     bottom: 50px;
