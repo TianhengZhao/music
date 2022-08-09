@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { concactSingerName } from "../../../api/utils";
 import {
     NormalPlayerContainer,
@@ -18,6 +18,7 @@ function NormalPlayer(props) {
     const { song, fullScreen, toggleFullScreen } = props;
     const normalPlayerRef = useRef();
     const cdWrapperRef = useRef();
+    
 
     // 进入时帧动画
     const enter = () => {

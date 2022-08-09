@@ -7,7 +7,14 @@ import ProgressCircle from "../../../baseUI/progress-circle";
 
 
 function MiniPlayer(props) {
-    const { song, fullScreen, toggleFullScreen } = props;
+    const { 
+        song, 
+        fullScreen, 
+        playing,
+        percent,
+        clickPlaying,
+        toggleFullScreen 
+    } = props;
     const miniPlayerRef = useRef();
     
     return (
@@ -21,7 +28,7 @@ function MiniPlayer(props) {
             <MiniPlayerContainer ref={miniPlayerRef} onClick={() => toggleFullScreen(true)}>
                 <div className="icon">
                     <div className="imgWrapper">
-                        <img className="play" src={song.al.picUrl} width="40" height="40" alt="img" />
+                        <img className={`play ${playing ? "": "pause"}`} src={song.al.picUrl} width="40" height="40" alt="img" />
                     </div>
                 </div>
                 <div className="text">
@@ -29,8 +36,13 @@ function MiniPlayer(props) {
                     <p className="desc">{concactSingerName(song.ar)}</p>
                 </div>
                 <div className="control">
-                    <ProgressCircle radius={32} percent={0.3}>
-                        <i className="iconfont icon-pause icon-mini" />
+                    <ProgressCircle radius={32} percent={percent}>
+                        {
+                            playing ? 
+                            <i className="iconfont icon-play icon-mini" onClick={e => clickPlaying(e, false)}/>
+                                :
+                            <i className="iconfont icon-pause icon-mini" onClick={e => clickPlaying(e, true)}/>
+                        }
                     </ProgressCircle>
                 </div>
                 <div className="control">
